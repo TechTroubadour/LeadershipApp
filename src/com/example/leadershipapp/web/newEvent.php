@@ -1,3 +1,6 @@
+<?php
+	include 'security.php';
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -122,13 +125,3 @@ enctype="multipart/form-data">
 </table>
 </body>
 </html>
-<?php
-function dbconnect() {
-	$dbhost = 'leadershipAppDat.db.10164554.hostedresource.com';
-	$dbname = 'leadershipAppDat';
-	$dbuser = 'leadershipAppDat';
-	$dbpass = 'N!SFlG9f97ab98';
-	mysql_connect($dbhost, $dbuser, $dbpass) or die("Unable to connect to database");
-	mysql_select_db($dbname);
-}
-?>

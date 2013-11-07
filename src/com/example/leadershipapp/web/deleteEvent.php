@@ -1,12 +1,5 @@
 <?php
-function dbconnect() {
-	$dbhost = 'leadershipAppDat.db.10164554.hostedresource.com';
-	$dbname = 'leadershipAppDat';
-	$dbuser = 'leadershipAppDat';
-	$dbpass = 'N!SFlG9f97ab98';
-	mysql_connect($dbhost, $dbuser, $dbpass) or die("Unable to connect to database");
-	mysql_select_db($dbname);
-}
+include 'security.php';
 dbconnect();
 $id = mysql_real_escape_string($_POST['id']);
 $query = "SELECT image_url FROM Events WHERE id = '$id'";
