@@ -45,37 +45,47 @@ td {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
 <script>
+function callback(Input,default_value){
+   return function() {
+      if(Input.val() == default_value) Input.val("");
+   }
+}
+function callback2(Input,default_value){
+   return function(){
+      if(Input.val().length == 0) Input.val(default_value);
+   }
+}
 $(document).ready(function(){
-	
   // require password before submit
   $("form").submit(function(event){
-	if(event.target.id=="password"){
-	   if($("#password").text()=="samplePassword"){
+	if(event.target.id=="password"||event.target.id=="passwordFormWrapper"){
+	   if($("#password").val()=="samplePassword"){
+		  $("#password").hide(1);
 	      $("#footer_text").css({ "color": "#0f0"})
 	      $("#footer_text").text("Valid password.")
+		  $("#newEventPass").val($("#password").val());
 	   }else{
 	      $("#footer_text").css({ "color": "#f00"})
-	      $("#footer_text").text("Valid password.")
+	      $("#footer_text").text("Invalid password.")
 	   }
-	   return;
+	   event.preventDefault();
+	} 
+	if($("#password").val()!="samplePassword"){
+	   event.preventDefault();
+	  $("#footer_text").css({ "color": "#f00"})
+	  $("#footer_text").text("Invalid password.")
+	  $("#password").show().focus();
 	}
-	event.preventDefault();
   });
+  
   // clear forms on focus
-  var Input = new Array();
-  //var Input = $('input[name=line_01]');
-  var default_value = new Array();//Input.val();
-  for(var i = 1; i < 8; i++){
-	  Input[i] = $('input[name=line_0'+i+']');
-	  dfault_value[i] = Input[i].val();
-	  Input[i].focus(function() {
-		if(Input.val() == default_value) Input.val("");
-	  }).blur(function(){
-		if(Input.val().length == 0) Input.val(default_value);
-	  });
+  for(i = 1; i < 8; i++){
+	  var Input = $('input[name=line_0'+i+']');
+	  var default_value = Input.val();
+	  
+	  Input.focus(callback(Input,default_value)).blur(callback2(Input,default_value));
   }
 
-  
   // Validate password
   $("#password").blur(function(){$(this).submit()});
 });
@@ -83,8 +93,9 @@ $(document).ready(function(){
 </head>
 
 <body>
-<form action="upload_file.php" method="post"
+<form id="addEventForm" action="upload_file.php" method="post"
 enctype="multipart/form-data">
+<input type="hidden" id="newEventPass" name="password"/>
   <table align="center">
   <tr>
     <td><table id="form" align="center" class="newEvent" border="1px solid blue">
@@ -179,7 +190,9 @@ enctype="multipart/form-data">
 </table>
 <div id="footer">
 <div id="footer_form">
-	<input type="password" id="password"/>
+<form id="passwordFormWrapper">
+	<input type="password" onsubmit="return false;" id="password"/>
+</form>
 </div>
 <div id="footer_text">
 Enter the password to submit a form.
