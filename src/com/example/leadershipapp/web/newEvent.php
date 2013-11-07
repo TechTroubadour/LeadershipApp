@@ -22,6 +22,12 @@ td {
 	vertical-align:top;
 }
 </style>
+<script type="text/javascript">
+function tryDelete(id){
+	alert("HELLO");
+	return false;
+}
+</script>
 </head>
 
 <body>
@@ -116,7 +122,7 @@ enctype="multipart/form-data">
 							<td>".$row['note']."</td>
 						</tr>
 					</table></td>
-					<td><form action='deleteEvent.php' method='post'><input type='hidden' name='id' value='".$row['id']."'><input type='submit' value='delete' /></form></td>
+					<td><form action='deleteEvent.php' method='post'><input type='hidden' name='id' value='".$row['id']."'><input type='hidden' name='password' id='".$row['id']."'><input type='submit' onclick='tryDelete(".$row['id'].")' value='delete' /></form></td>
 				</tr>";
 		}
 	?>
