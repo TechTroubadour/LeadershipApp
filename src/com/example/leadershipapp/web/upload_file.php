@@ -11,7 +11,7 @@ $l5 = mysql_real_escape_string($_POST['line_05']);
 $l6 = mysql_real_escape_string($_POST['line_06']);
 $l7 = mysql_real_escape_string($_POST['line_07']);
 $pass1 = $_POST['password'];
-if(isCorrectPassword($pass1)) {
+if(!isCorrectPassword($pass1)) {
     header('Location: newEvent.php?error=Incorrect password.');
 	exit;
 }
