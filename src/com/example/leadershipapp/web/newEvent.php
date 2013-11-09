@@ -55,25 +55,36 @@ function callback2(Input,default_value){
       if(Input.val().length == 0) Input.val(default_value);
    }
 }
+function validPassword(pass){
+	$.post("security.php",{password:pass},function(data){
+		if(data=="true"){
+			alert("HOO HAA");
+			return true;
+		}else{
+			return false;	
+		}
+	});
+}
 $(document).ready(function(){
   // require password before submit
   $("form").submit(function(event){
 	if(event.target.id=="password"||event.target.id=="passwordFormWrapper"){
-	   if($("#password").val()=="samplePassword"){
+	   if(validPassword($("#password").val())){
 		  $("#password").hide(1);
-	      $("#footer_text").css({ "color": "#0f0"})
-	      $("#footer_text").text("Valid password.")
+	      $("#footer_text").css({ "color": "#0f0"});
+	      $("#footer_text").text("Valid password.");
 		  $("#newEventPass").val($("#password").val());
 	   }else{
-	      $("#footer_text").css({ "color": "#f00"})
-	      $("#footer_text").text("Invalid password.")
+	      $("#footer_text").css({ "color": "#f00"});
+	      $("#footer_text").text("Invalid password.");
 	   }
 	   event.preventDefault();
 	} 
-	if($("#password").val()!="samplePassword"){
+	if(!validPassword($("#password").val())){
+		alert("HERDERBUR");
 	   event.preventDefault();
-	  $("#footer_text").css({ "color": "#f00"})
-	  $("#footer_text").text("Invalid password.")
+	  $("#footer_text").css({ "color": "#f00"});
+	  $("#footer_text").text("Invalid password.");
 	  $("#password").show().focus();
 	}
   });
