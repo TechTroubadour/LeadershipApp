@@ -55,25 +55,42 @@ function callback2(Input,default_value){
       if(Input.val().length == 0) Input.val(default_value);
    }
 }
+var excalibur = false;
+function validPassword(pass){
+	$.post("security.php",{password:pass},function(data){
+		if(data=="true"){
+			alert("U GREAT SMART THINK.");
+			excalibur = true;
+		}else{
+			alert("Y U SO BAD AT THIS?");
+			excalibur = false;
+		}
+	});
+	alert("DON'T LOOK AT ME.  THE PASSWERD IS "+pass+". EXCALIBUR IS "+excalibur);
+	return excalibur;
+}
 $(document).ready(function(){
   // require password before submit
   $("form").submit(function(event){
 	if(event.target.id=="password"||event.target.id=="passwordFormWrapper"){
-	   if($("#password").val()=="samplePassword"){
+	   if(validPassword($("#password").val())){
+		  alert("VER NICE PERSWERD MUCH APPLAUD");
 		  $("#password").hide(1);
-	      $("#footer_text").css({ "color": "#0f0"})
-	      $("#footer_text").text("Valid password.")
+	      $("#footer_text").css({ "color": "#0f0"});
+	      $("#footer_text").text("Valid password.");
 		  $("#newEventPass").val($("#password").val());
 	   }else{
-	      $("#footer_text").css({ "color": "#f00"})
-	      $("#footer_text").text("Invalid password.")
+		  alert("THIS IS ONLY THE FIRST SCREW UP");
+	      $("#footer_text").css({ "color": "#f00"});
+	      $("#footer_text").text("Invalid password.");
 	   }
 	   event.preventDefault();
 	} 
-	if($("#password").val()!="samplePassword"){
-	   event.preventDefault();
-	  $("#footer_text").css({ "color": "#f00"})
-	  $("#footer_text").text("Invalid password.")
+	if(!(validPassword($("#password").val()))){
+	  event.preventDefault();
+	  alert("NOW U IN DEEP PIGEON DOODOO");
+	  $("#footer_text").css({ "color": "#f00"});
+	  $("#footer_text").text("Invalid password.");
 	  $("#password").show().focus();
 	}
   });
