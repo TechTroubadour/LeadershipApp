@@ -59,14 +59,32 @@ td {
 }
 .listItem{
 	background-color:#0CC;
+	width:500px;
+	height:150px;
+	margin-bottom:10px;
+	overflow:scroll;
 }
 .leftBuffer{
 	background-color:#099;
 	width:10px;
+	height:150px;
+	float:left;
 }
 .rightBuffer{
 	background-color:#0FF;
 	width:10px;
+	height:150px;
+	float:right;
+}
+.listImage{
+	height:140px;
+	float:left;
+	margin:5px;
+}
+.listText{
+	height:inherit;
+	width:330px;
+	float:left;
 }
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
@@ -206,7 +224,7 @@ enctype="multipart/form-data">
 			echo "<div class='listItem'>
 					  <div class='leftBuffer'>
 					  </div>
-					  <img src='".$row['image_url']."' />
+					  <img class='listImage' src='".$row['image_url']."' />
 					  <div class='listText'>
 						".$row['presenting_group']."</br>
 						".$row['event_name']."</br>
@@ -215,7 +233,7 @@ enctype="multipart/form-data">
 						".$row['general_price']."</br>
 						".$row['special_price']."</br>
 						".$row['note']."</br>
-						<form action='deleteEvent.php' method='post'><input type='hidden' name='id' value='".$row['id']."'><input type='hidden' name='password' id='".$row['id']."'><input type='submit' onclick='tryDelete(".$row['id'].")' value='delete' /></form>
+						<!--<form action='deleteEvent.php' method='post'><input type='hidden' name='id' value='".$row['id']."'><input type='hidden' name='password' id='".$row['id']."'><input type='submit' onclick='tryDelete(".$row['id'].")' value='delete' /></form>-->
 						</div>
 						<div class='rightBuffer'>
 						</div>
