@@ -101,7 +101,7 @@ function callback2(Input,default_value){
    }
 }
 var excalibur = false;
-function validPassword(pass){
+function validPassword(pass){  //Ajax could be changing the order the lines execute.
 	$.post("security.php",{password:pass},function(data){
 		if(data=="true"){
 			//alert("U GREAT SMART THINK.");
@@ -112,8 +112,6 @@ function validPassword(pass){
 		}
 	});
 	//alert("DON'T LOOK AT ME.  THE PASSWERD IS "+pass+". EXCALIBUR IS "+excalibur);
-	
-	var unused=excalibur; //if i use the excaliber variable hopefully it updates
 	return excalibur;
 }
 $(document).ready(function(){
@@ -122,7 +120,7 @@ $(document).ready(function(){
 	//alert(event.target.id);
 	if(event.target.id=="passwordFormWrapper"){
 	   if(validPassword($("#password").val())){
-		  //alert("VER NICE PERSWERD MUCH APPLAUD");
+		  //alert("VER NICE PERSWERD MUCH APPLAUD #hipster");
 		  $("#footer_form").hide(1);
 	      $("#footer_text").css({ "color": "#0f0"});
 	      $("#footer_text").text("Valid password.");
@@ -141,6 +139,8 @@ $(document).ready(function(){
 	  $("#password").show().focus();
 	}
   });
+  
+  
   
   // clear forms on focus
   for(i = 1; i < 8; i++){
@@ -251,7 +251,7 @@ enctype="multipart/form-data">
 </form>
 </div>
 <div id="footer_text">
-Enter the password to submit a form.
+Enter the password to submit a form.<br />You may have to submit the password twice...
 </div>
 </div>
 </body>
