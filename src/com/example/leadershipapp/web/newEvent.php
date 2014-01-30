@@ -112,6 +112,8 @@ function validPassword(pass){
 		}
 	});
 	//alert("DON'T LOOK AT ME.  THE PASSWERD IS "+pass+". EXCALIBUR IS "+excalibur);
+	
+	var unused=excalibur; //if i use the excaliber variable hopefully it updates
 	return excalibur;
 }
 $(document).ready(function(){
