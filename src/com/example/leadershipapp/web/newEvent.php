@@ -104,36 +104,36 @@ var excalibur = false;
 function validPassword(pass){
 	$.post("security.php",{password:pass},function(data){
 		if(data=="true"){
-			alert("U GREAT SMART THINK.");
+			//alert("U GREAT SMART THINK.");
 			excalibur = true;
 		}else{
-			alert("Y U SO BAD AT THIS?");
+			//alert("Y U SO BAD AT THIS?");
 			excalibur = false;
 		}
 	});
-	alert("DON'T LOOK AT ME.  THE PASSWERD IS "+pass+". EXCALIBUR IS "+excalibur);
+	//alert("DON'T LOOK AT ME.  THE PASSWERD IS "+pass+". EXCALIBUR IS "+excalibur);
 	return excalibur;
 }
 $(document).ready(function(){
   // require password before submit
   $("form").submit(function(event){
-	if(event.target.id=="password"||event.target.id=="passwordFormWrapper"){
+	//alert(event.target.id);
+	if(event.target.id=="passwordFormWrapper"){
 	   if(validPassword($("#password").val())){
-		  alert("VER NICE PERSWERD MUCH APPLAUD");
-		  $("#password").hide(1);
+		  //alert("VER NICE PERSWERD MUCH APPLAUD");
+		  $("#footer_form").hide(1);
 	      $("#footer_text").css({ "color": "#0f0"});
 	      $("#footer_text").text("Valid password.");
 		  $("#newEventPass").val($("#password").val());
 	   }else{
-		  alert("THIS IS ONLY THE FIRST SCREW UP");
+		  //alert("THIS IS ONLY THE FIRST SCREW UP");
 	      $("#footer_text").css({ "color": "#f00"});
 	      $("#footer_text").text("Invalid password.");
 	   }
-	   event.preventDefault();
-	} 
-	if(!(validPassword($("#password").val()))){
+	   event.preventDefault();  //The purpose of this might be to temporarily stop form submission
+	}else if(event.target.id!="password"&&!(validPassword($("#password").val()))){
 	  event.preventDefault();
-	  alert("NOW U IN DEEP PIGEON DOODOO");
+	  //alert("NOW U IN DEEP PIGEON DOODOO");
 	  $("#footer_text").css({ "color": "#f00"});
 	  $("#footer_text").text("Invalid password.");
 	  $("#password").show().focus();
@@ -245,6 +245,7 @@ enctype="multipart/form-data">
 <div id="footer_form">
 <form id="passwordFormWrapper">
 	<input type="password" onsubmit="return false;" id="password"/>
+    <input type="submit" value="Authorize" />
 </form>
 </div>
 <div id="footer_text">
