@@ -8,14 +8,14 @@
 <title>Create New Event</title>
 <style type="text/css">
 body {
-	background-image: url(res/images/background.png);
+	background-image: url(res/images/background2.png);
 	background-repeat: repeat-y;
 	background-attachment: fixed;
 	background-position: top;
 	background-color: #000;
 	font-family: Tahoma, Geneva, sans-serif;
 }
-.newEvent {
+/*.newEvent {
 	border:5px solid black;
 	background-color:#099;
 	color:#CCC;
@@ -25,6 +25,7 @@ body {
 td {
 	vertical-align:top;
 }
+*/
 #footer {
 	width:500px;
 	position:fixed;
@@ -40,6 +41,50 @@ td {
 }
 #footer_form{
 	padding:5px;
+}
+#newEventFormContainer{
+	position:fixed;
+	background-image:url(res/images/win1.png);
+	width:548px;
+	height:379px;
+}
+#newEventForm{
+	padding-left:180px;
+	padding-top:70px;
+	color:#096;
+}
+#listContainer{
+	position:absolute;
+	left:600px;
+}
+.listItem{
+	background-color:#0CC;
+	width:500px;
+	height:150px;
+	margin-bottom:10px;
+	overflow:scroll;
+}
+.leftBuffer{
+	background-color:#099;
+	width:10px;
+	height:150px;
+	float:left;
+}
+.rightBuffer{
+	background-color:#0FF;
+	width:10px;
+	height:150px;
+	float:right;
+}
+.listImage{
+	height:140px;
+	float:left;
+	margin:5px;
+}
+.listText{
+	height:inherit;
+	width:330px;
+	float:left;
 }
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
@@ -110,12 +155,13 @@ $(document).ready(function(){
 </head>
 
 <body>
+<div id="newEventFormContainer">
+	<div id="newEventForm">
+    
 <form id="addEventForm" action="upload_file.php" method="post"
 enctype="multipart/form-data">
 <input type="hidden" id="newEventPass" name="password"/>
-  <table align="center">
-  <tr>
-    <td><table id="form" align="center" class="newEvent" border="1px solid blue">
+    	<table id="form" align="center" class="newEvent">
         <tr>
           <td><label for="file">Image:</label></td>
           <td><input type="file" name="file" id="file"></td>
@@ -165,46 +211,36 @@ enctype="multipart/form-data">
 				}
 			?>
       </table>
+      
 </form>
-</td>
-<td><table align="center" class="newEvent" border="1px solid blue">
+    </div>
+</div>
+<div id="listContainer">
     <?php
 		dbconnect();
 		
 		$query = mysql_query("SELECT * FROM Events ORDER BY id") or die(mysql_error());
 		for($i = 0;$row = mysql_fetch_assoc($query);$i++) {
-			echo "<tr>
-					<td><img src='".$row['image_url']."' /></td>
-					<td><table>
-						<tr>
-							<td>".$row['presenting_group']."</td>
-						</tr>
-						<tr>
-							<td>".$row['event_name']."</td>
-						</tr>
-						<tr>
-							<td>".$row['day']."</td>
-						</tr>
-						<tr>
-							<td>".$row['time']."</td>
-						</tr>
-						<tr>
-							<td>".$row['general_price']."</td>
-						</tr>
-						<tr>
-							<td>".$row['special_price']."</td>
-						</tr>
-						<tr>
-							<td>".$row['note']."</td>
-						</tr>
-					</table></td>
-					<td><form action='deleteEvent.php' method='post'><input type='hidden' name='id' value='".$row['id']."'><input type='hidden' name='password' id='".$row['id']."'><input type='submit' onclick='tryDelete(".$row['id'].")' value='delete' /></form></td>
-				</tr>";
+			echo "<div class='listItem'>
+					  <div class='leftBuffer'>
+					  </div>
+					  <img class='listImage' src='".$row['image_url']."' />
+					  <div class='listText'>
+						".$row['presenting_group']."</br>
+						".$row['event_name']."</br>
+						".$row['day']."</br>
+						".$row['time']."</br>
+						".$row['general_price']."</br>
+						".$row['special_price']."</br>
+						".$row['note']."</br>
+						<!--<form action='deleteEvent.php' method='post'><input type='hidden' name='id' value='".$row['id']."'><input type='hidden' name='password' id='".$row['id']."'><input type='submit' onclick='tryDelete(".$row['id'].")' value='delete' /></form>-->
+						</div>
+						<div class='rightBuffer'>
+						</div>
+					</div>";
 		}
 	?>
-  </table></td>
-</tr>
-</table>
+   </div>
 <div id="footer">
 <div id="footer_form">
 <form id="passwordFormWrapper">
