@@ -102,7 +102,7 @@ function callback2(Input,default_value){
 }
 var excalibur = false;
 function validPassword(pass){  //Ajax could be changing the order the lines execute.
-	$.post("security.php",{password:pass},function(data){
+	$.post("security.php",{password:pass,echo:'true'},function(data){
 		if(data=="true"){
 			//alert("U GREAT SMART THINK.");
 			excalibur = true;
@@ -117,7 +117,7 @@ function validPassword(pass){  //Ajax could be changing the order the lines exec
 $(document).ready(function(){
   // require password before submit
   $("form").submit(function(event){
-	//alert(event.target.id);
+	//alert(excalibur);
 	if(event.target.id=="passwordFormWrapper"){
 	   if(validPassword($("#password").val())){
 		  //alert("VER NICE PERSWERD MUCH APPLAUD #hipster");
