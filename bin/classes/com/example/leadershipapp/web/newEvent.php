@@ -52,6 +52,7 @@ td {
 	padding-left:180px;
 	padding-top:70px;
 	color:#096;
+	overflow:hidden;
 }
 #listContainer{
 	position:absolute;
@@ -78,13 +79,17 @@ td {
 }
 .listImage{
 	height:140px;
+	width:140px;
 	float:left;
 	margin:5px;
 }
 .listText{
 	height:inherit;
-	width:330px;
+	width:314px;
 	float:left;
+}
+.icon{
+	float:right;	
 }
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
@@ -101,43 +106,49 @@ function callback2(Input,default_value){
    }
 }
 var excalibur = false;
-function validPassword(pass){
-	$.post("security.php",{password:pass},function(data){
+function validPassword(pass){  //Ajax could be changing the order the lines execute.
+	$.post("security.php",{password:pass,echo:'true'},function(data){
 		if(data=="true"){
-			alert("U GREAT SMART THINK.");
+			//alert("U GREAT SMART THINK.");
 			excalibur = true;
 		}else{
-			alert("Y U SO BAD AT THIS?");
+			//alert("Y U SO BAD AT THIS?");
 			excalibur = false;
 		}
 	});
-	alert("DON'T LOOK AT ME.  THE PASSWERD IS "+pass+". EXCALIBUR IS "+excalibur);
+	//alert("DON'T LOOK AT ME.  THE PASSWERD IS "+pass+". EXCALIBUR IS "+excalibur);
 	return excalibur;
 }
 $(document).ready(function(){
   // require password before submit
   $("form").submit(function(event){
-	if(event.target.id=="password"||event.target.id=="passwordFormWrapper"){
+	//alert(excalibur);
+	if(event.target.id=="passwordFormWrapper"){
 	   if(validPassword($("#password").val())){
-		  alert("VER NICE PERSWERD MUCH APPLAUD");
-		  $("#password").hide(1);
+		  //alert("VER NICE PERSWERD MUCH APPLAUD #hipster");
+		  $("#footer_form").hide(1);
 	      $("#footer_text").css({ "color": "#0f0"});
 	      $("#footer_text").text("Valid password.");
 		  $("#newEventPass").val($("#password").val());
 	   }else{
-		  alert("THIS IS ONLY THE FIRST SCREW UP");
+		  //alert("THIS IS ONLY THE FIRST SCREW UP");
 	      $("#footer_text").css({ "color": "#f00"});
 	      $("#footer_text").text("Invalid password.");
 	   }
-	   event.preventDefault();
-	} 
-	if(!(validPassword($("#password").val()))){
+	   event.preventDefault();  //The purpose of this might be to temporarily stop form submission
+	}else if(event.target.id!="password"&&!(validPassword($("#password").val()))){
 	  event.preventDefault();
-	  alert("NOW U IN DEEP PIGEON DOODOO");
+	  //alert("NOW U IN DEEP PIGEON DOODOO");
 	  $("#footer_text").css({ "color": "#f00"});
 	  $("#footer_text").text("Invalid password.");
 	  $("#password").show().focus();
 	}
+  });
+  
+  $(".listItem").mouseenter(function(e) {
+     $(this).css({"background-color":"#099"});  
+  }).mouseleave(function(e){
+     $(this).css({"background-color":"#0CC"});  
   });
   
   // clear forms on focus
@@ -150,6 +161,19 @@ $(document).ready(function(){
 
   // Validate password
   $("#password").blur(function(){$(this).submit()});
+  
+  // Delete Event
+  $(".icon").click(function(e) {
+	   if(validPassword($("#password").val())){
+		   alert("Event deleted.\nThis cannot be undone.");
+			$.post("deleteEvent.php",{password:$("#password").val(),id:$(this).attr("id")},function(data){});
+	   }else{
+		  e.preventDefault();
+	      $("#footer_text").css({ "color": "#f00"});
+	      $("#footer_text").text("Invalid password.");
+	      $("#password").show().focus();
+	   }
+  });
 });
 </script>
 </head>
@@ -233,22 +257,30 @@ enctype="multipart/form-data">
 						".$row['general_price']."</br>
 						".$row['special_price']."</br>
 						".$row['note']."</br>
-						<!--<form action='deleteEvent.php' method='post'><input type='hidden' name='id' value='".$row['id']."'><input type='hidden' name='password' id='".$row['id']."'><input type='submit' onclick='tryDelete(".$row['id'].")' value='delete' /></form>-->
 						</div>
 						<div class='rightBuffer'>
 						</div>
+						<a href=''>
+							<img class='icon' id='".$row['id']."' src='res/images/b_drop.png' />
+						</a>
 					</div>";
 		}
 	?>
-   </div>
+<br />
+<br />
+<br />
+<br />
+<br />
+</div>
 <div id="footer">
 <div id="footer_form">
 <form id="passwordFormWrapper">
 	<input type="password" onsubmit="return false;" id="password"/>
+    <input type="submit" value="Authorize" />
 </form>
 </div>
 <div id="footer_text">
-Enter the password to submit a form.
+Enter the password to submit a form.<br />You may have to submit the password twice...
 </div>
 </div>
 </body>

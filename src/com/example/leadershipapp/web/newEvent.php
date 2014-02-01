@@ -52,6 +52,7 @@ td {
 	padding-left:180px;
 	padding-top:70px;
 	color:#096;
+	overflow:hidden;
 }
 #listContainer{
 	position:absolute;
@@ -78,13 +79,17 @@ td {
 }
 .listImage{
 	height:140px;
+	width:140px;
 	float:left;
 	margin:5px;
 }
 .listText{
 	height:inherit;
-	width:330px;
+	width:314px;
 	float:left;
+}
+.icon{
+	float:right;	
 }
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
@@ -140,7 +145,11 @@ $(document).ready(function(){
 	}
   });
   
-  
+  $(".listItem").mouseenter(function(e) {
+     $(this).css({"background-color":"#099"});  
+  }).mouseleave(function(e){
+     $(this).css({"background-color":"#0CC"});  
+  });
   
   // clear forms on focus
   for(i = 1; i < 8; i++){
@@ -152,6 +161,19 @@ $(document).ready(function(){
 
   // Validate password
   $("#password").blur(function(){$(this).submit()});
+  
+  // Delete Event
+  $(".icon").click(function(e) {
+	   if(validPassword($("#password").val())){
+		   alert("Event deleted.\nThis cannot be undone.");
+			$.post("deleteEvent.php",{password:$("#password").val(),id:$(this).attr("id")},function(data){});
+	   }else{
+		  e.preventDefault();
+	      $("#footer_text").css({ "color": "#f00"});
+	      $("#footer_text").text("Invalid password.");
+	      $("#password").show().focus();
+	   }
+  });
 });
 </script>
 </head>
@@ -235,14 +257,21 @@ enctype="multipart/form-data">
 						".$row['general_price']."</br>
 						".$row['special_price']."</br>
 						".$row['note']."</br>
-						<!--<form action='deleteEvent.php' method='post'><input type='hidden' name='id' value='".$row['id']."'><input type='hidden' name='password' id='".$row['id']."'><input type='submit' onclick='tryDelete(".$row['id'].")' value='delete' /></form>-->
 						</div>
 						<div class='rightBuffer'>
 						</div>
+						<a href=''>
+							<img class='icon' id='".$row['id']."' src='res/images/b_drop.png' />
+						</a>
 					</div>";
 		}
 	?>
-   </div>
+<br />
+<br />
+<br />
+<br />
+<br />
+</div>
 <div id="footer">
 <div id="footer_form">
 <form id="passwordFormWrapper">
