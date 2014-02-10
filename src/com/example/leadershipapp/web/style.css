@@ -1,0 +1,86 @@
+@charset "UTF-8";
+/* CSS Document */
+body {
+	background-image: url(res/images/background2.png);
+	background-repeat: repeat-y;
+	background-attachment: fixed;
+	background-position: top;
+	background-color: #000;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+/*.newEvent {
+	border:5px solid black;
+	background-color:#099;
+	color:#CCC;
+	font-family:"Lucida Console", Monaco, monospace;
+	padding:5px;
+}
+td {
+	vertical-align:top;
+}
+*/
+#footer {
+	width:500px;
+	position:fixed;
+	bottom:0px;
+	left:50%;
+	margin-left:-250px;
+	background-color:#099;
+	border:5px solid black;
+	color:#CCC;
+	font-family:"Lucida Console", Monaco, monospace;
+	padding:10px;
+	text-align:center;
+}
+#footer_form{
+	padding:5px;
+}
+#newEventFormContainer{
+	position:fixed;
+	background-image:url(res/images/win1.png);
+	width:548px;
+	height:379px;
+}
+#newEventForm{
+	padding-left:180px;
+	padding-top:70px;
+	color:#096;
+	overflow:hidden;
+}
+#listContainer{
+	position:absolute;
+	left:600px;
+}
+.listItem{
+	background-color:#0CC;
+	width:500px;
+	height:150px;
+	margin-bottom:10px;
+	overflow:scroll;
+}
+.leftBuffer{
+	background-color:#099;
+	width:10px;
+	height:150px;
+	float:left;
+}
+.rightBuffer{
+	background-color:#0FF;
+	width:10px;
+	height:150px;
+	float:right;
+}
+.listImage{
+	height:140px;
+	width:140px;
+	float:left;
+	margin:5px;
+}
+.listText{
+	height:inherit;
+	width:314px;
+	float:left;
+}
+.icon{
+	float:right;	
+}
