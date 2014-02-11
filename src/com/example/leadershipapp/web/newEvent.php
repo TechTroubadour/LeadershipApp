@@ -115,7 +115,7 @@ enctype="multipart/form-data">
         </tr>
         <tr>
           <td><label for="line_03">Day:</label></td>
-          <td><input type="text" name="line_03" id="line_03" value="Januray 1, 2014" /></td>
+          <td><input type="text" name="line_03" id="line_03" value="January 1, 2014" /></td>
         </tr>
         <tr>
           <td><label for="line_04">Time:</label></td>

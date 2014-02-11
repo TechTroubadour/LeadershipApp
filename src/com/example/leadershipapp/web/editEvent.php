@@ -28,14 +28,16 @@ $(document).ready(function(){
 	}while($row['id']!=17);
 ?>
 <img name="image_url" src="<?= $row['image_url'] ?>" /><br />
-<input name="presenting_group" type="text" value="<?= $row['presenting_group'] ?>" /><br />
-<input name="event_name" type="text" value="<?= $row['event_name'] ?>" /><br />
-<input name="day" type="text" value="<?= $row['day'] ?>" /><br />
-<input name="time" type="text" value="<?= $row['time'] ?>" /><br />
-<input name="general_price" type="text" value="<?= $row['general_price'] ?>" /><br />
-<input name="special_price" type="text" value="<?= $row['special_price'] ?>" /><br />
-<input name="note" type="text" value="<?= $row['note'] ?>" /><br />
-<input name="id" type="hidden" value="<?= $row['id'] ?>" /><br />
-<input type="submit" value="Update" />
+<form method="post"	action="updateEvent.php">
+    <input name="presenting_group" type="text" value="<?= $row['presenting_group'] ?>" /><br />
+    <input name="event_name" type="text" value="<?= $row['event_name'] ?>" /><br />
+    <input name="day" type="text" value="<?= $row['day'] ?>" /><br />
+    <input name="time" type="text" value="<?= $row['time'] ?>" /><br />
+    <input name="general_price" type="text" value="<?= $row['general_price'] ?>" /><br />
+    <input name="special_price" type="text" value="<?= $row['special_price'] ?>" /><br />
+    <input name="note" type="text" value="<?= $row['note'] ?>" /><br />
+    <input name="id" type="hidden" value="<?= $row['id'] ?>" /><br />
+    <input type="submit" value="Update" />
+</form>
 </body>
 </html>

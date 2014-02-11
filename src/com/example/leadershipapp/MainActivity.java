@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void goToVideo (View view) {
-		String video_path = "http://www.youtube.com/watch?v=uGa25TYhMME";
+		String video_path = "www.youtube.com/watch?v=S9kqJ9SkZc4";
 		Uri uri = Uri.parse(video_path);
 
 		// With this line the Youtube application, if installed, will launch immediately.
